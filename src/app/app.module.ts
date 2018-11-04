@@ -16,8 +16,9 @@ import {LayoutModule} from "@angular/cdk/layout";
 import {materialModules} from "./app.material";
 import {JwtInterceptorModule} from "./interceptors/jwt-interceptor.service";
 import {UserModule} from "./services/user.service";
-import { ProfileComponent } from './components/profile/profile.component';
-import { EventComponent } from './components/event/event.component';
+import { ProfileComponent } from "./components/profile/profile.component";
+import { EventComponent } from "./components/event/event.component";
+import {CustomErrorHandlerModule} from "./services/custom-error-handler.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EventComponent } from './components/event/event.component';
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: "never"}),
     ...materialModules,
     JwtInterceptorModule,
-    UserModule
+    UserModule,
+    CustomErrorHandlerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

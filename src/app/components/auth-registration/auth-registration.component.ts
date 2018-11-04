@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../shared/Validators";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
+import {CustomErrorHandlerService} from "../../services/custom-error-handler.service";
 
 @Component({
   selector: "app-auth-registration",
@@ -36,8 +37,10 @@ export class AuthRegistrationComponent implements OnInit {
     public authReg: AuthRegistrationService,
     private _formBuilder: FormBuilder,
     private router: Router,
-    public snackBar: MatSnackBar
-  ) {}
+    public snackBar: MatSnackBar,
+    public errorHandler: CustomErrorHandlerService
+
+) {}
 
   ngOnInit() {
     this.genders = objectToArray(Genders);
@@ -78,10 +81,7 @@ export class AuthRegistrationComponent implements OnInit {
         localStorage.setItem("refreshToken", response.body.refreshToken);
         this.router.navigate(["/"]);
       }, error => {
-        if (error.status === 401) {
-          this.message = "Login or Password is not correct";
-          this.openSnackBar();
-        }
+        this.errorHandler.handleError(error);
       });
   }
 
@@ -93,6 +93,8 @@ export class AuthRegistrationComponent implements OnInit {
           if (response.body === "SENT") {
             this.isEmailSended = true;
           }
+        }, error => {
+          this.errorHandler.handleError(error);
         });
     }
   }
@@ -104,6 +106,7 @@ export class AuthRegistrationComponent implements OnInit {
         localStorage.setItem("refreshToken", response.body.refreshToken);
         this.router.navigate(["/"]);
       }, error => {
+        this.errorHandler.handleError(error);
         this.message = error.message;
         this.openSnackBar();
       });
