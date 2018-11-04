@@ -41,6 +41,11 @@ export class AuthRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.genders = objectToArray(Genders);
+    const refreshToken: string = localStorage.getItem("refreshToken");
+    if (refreshToken) {
+      this.authReg.signOut(refreshToken).toPromise();
+    }
+
     localStorage.clear();
     this.authRegGroup = this._formBuilder.group({
       authEmail: ["", [Validators.required, Validators.email]],

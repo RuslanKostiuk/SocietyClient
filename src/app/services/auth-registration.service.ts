@@ -25,6 +25,10 @@ export class AuthRegistrationService {
     return this.http.post(`${environment.api}/token/refresh`, {token: token});
   }
 
+  public signOut(token: string): Observable<any> {
+    return this.http.post(`${environment.api}/signOut`, {token: token});
+  }
+
 }
 
 function AuthRegistrationFactory(http: HttpClient) {
