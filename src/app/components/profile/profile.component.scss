@@ -1,0 +1,29 @@
+.profile-content {
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+  .content {
+    img {
+      max-width: 350px;
+      cursor: pointer;
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .personal-info {
+    width: 74%;
+  }
+
+  .name-content {
+    display: flex;
+    align-items: center;
+
+    mat-card-subtitle {
+      margin-left: 10px;
+    }
+  }
+}

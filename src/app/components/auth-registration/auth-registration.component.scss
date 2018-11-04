@@ -1,0 +1,81 @@
+.header{
+  form {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+
+    > * {
+      margin-left: 20px;
+    }
+  }
+
+  mat-form-field {
+    margin-top: 25px;
+  }
+
+  button {
+    margin-right: 5%;
+    margin-top: 5px;
+  }
+
+  @media all and (max-width: 780px) {
+    form > * {
+      margin-left: 10px;
+    }
+    mat-form-field {
+      width: 30%;
+      font-size: 14px;
+    }
+    button {
+      width: 10%;
+    }
+
+  }
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5%;
+  mat-form-field {
+    width: 30%;
+  }
+
+  fieldset {
+    width: 30%;
+    mat-form-field {
+      width: 98%;
+    }
+  }
+
+  @media all and (max-width: 780px) {
+    mat-form-field, fieldset {
+      width: 98%;
+    }
+  }
+}
+
+#step3{
+  mat-spinner {
+    position: fixed;
+    top: 30%;
+    left: 45%;
+  }
+
+  .confirm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      margin-left: 25%;
+    }
+  }
+}
+
+.stepper-next {
+  align-self: flex-end;
+  width: 40%;
+}

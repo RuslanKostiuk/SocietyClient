@@ -1,0 +1,98 @@
+<mat-toolbar class="header" color="primary">
+  <form [formGroup]="authRegGroup">
+    <mat-form-field>
+      <input type="email" matInput placeholder="Email" formControlName="authEmail" [(ngModel)]="authData.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password" formControlName="authPassword" [(ngModel)]="authData.password">
+    </mat-form-field>
+    <button mat-stroked-button color="basic" (click)="signIn()">SignIn</button>
+  </form>
+</mat-toolbar>
+<mat-horizontal-stepper #stepper linear (selectionChange)="selectionChange($event)">
+  <mat-step [stepControl]="step1" [editable]="isEditable">
+    <form [formGroup]="step1">
+      <ng-template matStepLabel>Fill registration data</ng-template>
+      <div class="registration">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [(ngModel)]="user.email" formControlName="step1Email">
+            <mat-error>Email is invalid</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [(ngModel)]="user.password" formControlName="step1Password">
+            <mat-error>Password must be at least 6 characters long</mat-error>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm password</mat-label>
+          <input type="password" matInput formControlName="step1ConfirmPassword">
+          <mat-error>Passwords do not match</mat-error>
+        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput [(ngModel)]="user.lastName" formControlName="step1LastName">
+            <mat-error>Last name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput [(ngModel)]="user.firstName" formControlName="step1FirstName">
+            <mat-error>First name is required</mat-error>
+          </mat-form-field>
+        <div class="stepper-next">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="step2" [editable]="isEditable">
+    <form [formGroup]="step2">
+    <ng-template matStepLabel>Fill personal data</ng-template>
+      <div class="registration">
+        <mat-form-field>
+          <mat-label>Choose gender</mat-label>
+          <mat-select formControlName="step2Gender" [(ngModel)]="user.gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Date of birth" [(ngModel)]="user.birthday"
+              formControlName="step2DOB">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <fieldset>
+          <legend>Address</legend>
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input type="text" matInput [(ngModel)]="user.address.city" formControlName="step2City">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Street</mat-label>
+            <input type="text" matInput [(ngModel)]="user.address.street" formControlName="step2Street">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>House number</mat-label>
+            <input type="text" matInput [(ngModel)]="user.address.houseNumber" formControlName="step2HouseNumber">
+          </mat-form-field>
+        </fieldset>
+        <div class="stepper-next">
+          <button matStepperNext mat-button>Next</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="step3" [editable]="false">
+    <form id="step3" [formGroup]="step3">
+      <ng-template matStepLabel>Confirm email address</ng-template>
+      <mat-spinner *ngIf="!isEmailSended&&!isEmailVerified" [diameter]="230"></mat-spinner>
+      <div *ngIf="isEmailSended||isEmailVerified" class="confirm">
+        <span>Your verification code has been sent to your email. Enter code to continue </span>
+        <mat-form-field>
+          <input matInput placeholder="code" formControlName="step3Verification" [(ngModel)]="verificationCode">
+        </mat-form-field>
+        <button mat-button (click)="verify()">Finish</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

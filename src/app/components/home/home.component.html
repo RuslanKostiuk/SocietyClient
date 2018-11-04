@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="header">
+    <mat-toolbar color="primary">
+      <span>SOCIETY</span>
+    </mat-toolbar>
+  </div>
+  <div class="main-content">
+    <mat-drawer-container>
+      <mat-drawer mode="side" opened>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <i class="material-icons">perm_identity</i>
+            <button mat-button routerLink="" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="menuActive">My Profile</button>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <i class="material-icons">home</i>
+            <button mat-button routerLink="/events" routerLinkActive="menuActive">Events</button>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <i class="material-icons">forum</i>
+            <button mat-button routerLinkActive="menuActive">Messages</button>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <i class="material-icons">people</i>
+            <button mat-button routerLinkActive="menuActive">Friends</button>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <i class="material-icons">photo_library</i>
+            <button mat-button routerLinkActive="menuActive">Photos</button>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <i class="material-icons">people_outline</i>
+            <button mat-button routerLinkActive="menuActive">Groups</button>
+          </mat-list-item>
+        </mat-list>
+      </mat-drawer>
+      <mat-drawer-content>
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
+</div>
