@@ -87,6 +87,7 @@ export class AuthRegistrationComponent implements OnInit {
 
   private signUp(): void {
     if (this.step1.valid) {
+      this.user.avatar = "https://thevillageofkairos.com/wp-content/uploads/2016/06/team-man-placeholder.jpg";
       this.authReg
         .registration(this.user)
         .subscribe((response) => {

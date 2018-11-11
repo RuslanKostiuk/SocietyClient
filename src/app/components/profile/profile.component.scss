@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   .content {
-    img {
-      max-width: 350px;
+    .avatar {
+      width: 400px;
       cursor: pointer;
     }
 
@@ -15,7 +15,7 @@
   }
 
   .personal-info {
-    width: 74%;
+    width: 70%;
   }
 
   .name-content {

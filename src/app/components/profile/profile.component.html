@@ -2,9 +2,9 @@
 <div class="profile-content" *ngIf="user">
   <div class="content">
     <mat-card>
-      <img mat-card-image src="https://thevillageofkairos.com/wp-content/uploads/2016/06/team-man-placeholder.jpg">
+      <img mat-card-image src="{{user.avatar}}" class="avatar">
       <mat-card-actions>
-        <button mat-button>Change photo</button>
+        <button mat-button (click)="openDialog()">Change photo</button>
       </mat-card-actions>
     </mat-card>
   </div>

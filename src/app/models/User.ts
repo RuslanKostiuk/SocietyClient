@@ -2,6 +2,7 @@ import {Genders} from "../shared/enums";
 import Address from "./Address";
 
 export default class User {
+  public _id: string;
   public email: string;
   public password: string;
   public firstName: string;
@@ -23,4 +24,5 @@ export default class User {
   public videos: string;
   public gender: Genders;
   public wall: any;
+  avatar: string;
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import {UserService} from "../../services/user.service";
 import User from "../../models/User";
-import {parseHttpResponse} from "selenium-webdriver/http";
 import {CustomErrorHandlerService} from "../../services/custom-error-handler.service";
+import {MatDialog} from "@angular/material";
+import {ChangePhotoComponent} from "../modals/change-photo/change-photo.component";
 
 @Component({
   selector: "app-profile",
@@ -11,10 +12,12 @@ import {CustomErrorHandlerService} from "../../services/custom-error-handler.ser
 })
 export class ProfileComponent implements OnInit {
   public user: User;
+  public avatar: string;
 
   constructor(
     public userService: UserService,
-    public errorHandler: CustomErrorHandlerService
+    public errorHandler: CustomErrorHandlerService,
+    public changePhotoDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -25,4 +28,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  public openDialog(): void {
+    const dialogRef = this.changePhotoDialog.open(ChangePhotoComponent, {
+      height: "90%",
+      width: "60%",
+      data: {user: this.user}
+    });
+  }
 }

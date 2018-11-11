@@ -1,5 +1,5 @@
 import {
-  MatButtonModule, MatCardModule, MatDatepickerModule,
+  MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule,
   MatInputModule, MatListModule, MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSelectModule, MatSidenavModule, MatSnackBarModule,
@@ -19,5 +19,6 @@ export let materialModules = [
   MatSnackBarModule,
   MatSidenavModule,
   MatListModule,
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 ];

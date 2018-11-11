@@ -19,6 +19,9 @@ import {UserModule} from "./services/user.service";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { EventComponent } from "./components/event/event.component";
 import {CustomErrorHandlerModule} from "./services/custom-error-handler.service";
+import { ChangePhotoComponent } from "./components/modals/change-photo/change-photo.component";
+import {ImageCropperModule} from "ngx-image-cropper";
+import {S3Module} from "./services/s3.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {CustomErrorHandlerModule} from "./services/custom-error-handler.service"
     AuthRegistrationComponent,
     HomeComponent,
     ProfileComponent,
-    EventComponent
+    EventComponent,
+    ChangePhotoComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,14 @@ import {CustomErrorHandlerModule} from "./services/custom-error-handler.service"
     ...materialModules,
     JwtInterceptorModule,
     UserModule,
-    CustomErrorHandlerModule
+    CustomErrorHandlerModule,
+    ImageCropperModule,
+    S3Module
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ChangePhotoComponent
+  ]
 })
 export class AppModule { }

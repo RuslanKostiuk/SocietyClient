@@ -1,0 +1,20 @@
+<div class="image-content">
+  <mat-dialog-content class="mat-typography">
+    <input *ngIf="!isImageLoaded" type="file" (change)="fileChangeEvent($event)" />
+    <img [src]="croppedImage" class="cropped"/>
+    <image-cropper
+      class="cropper"
+      [imageChangedEvent]="imageChangedEvent"
+      [resizeToWidth]="768"
+      [maintainAspectRatio]="false"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="saveFile()">Save</button>
+  </mat-dialog-actions>
+</div>
