@@ -17,7 +17,7 @@
       <mat-card-content>
         <p *ngIf="user.birthday">Date of birth: {{user.birthday | date}}</p>
         <p *ngIf="user.gender">Gender: {{user.gender}}</p>
-        <p>Address: {{user.address.city}}, {{user.address.street}} {{user.address.houseNumber}}</p>
+        <p *ngIf="user.address">Address: {{user.address.city}}, {{user.address.street}} {{user.address.houseNumber}}</p>
       </mat-card-content>
     </mat-card>
   </div>
