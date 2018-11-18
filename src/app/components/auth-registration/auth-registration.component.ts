@@ -8,6 +8,7 @@ import {CustomValidators} from "../../shared/Validators";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
 import {CustomErrorHandlerService} from "../../services/custom-error-handler.service";
+import {SocketService} from "../../services/socket.service";
 
 @Component({
   selector: "app-auth-registration",
@@ -38,13 +39,15 @@ export class AuthRegistrationComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private router: Router,
     public snackBar: MatSnackBar,
-    public errorHandler: CustomErrorHandlerService
+    public errorHandler: CustomErrorHandlerService,
+    private socket: SocketService
 ) {}
 
   ngOnInit() {
     this.genders = objectToArray(Genders);
     const refreshToken: string = localStorage.getItem("refreshToken");
     if (refreshToken) {
+      this.socket.emit("connection-status", false);
       this.authReg.signOut(refreshToken).toPromise();
     }
 
@@ -79,6 +82,7 @@ export class AuthRegistrationComponent implements OnInit {
         localStorage.setItem("accessToken", response.body.token);
         localStorage.setItem("refreshToken", response.body.refreshToken);
         this.router.navigate(["/"]);
+        this.socket.emit("connection-status", true);
       }, error => {
         this.errorHandler.handleError(error);
       });
@@ -105,6 +109,7 @@ export class AuthRegistrationComponent implements OnInit {
         localStorage.setItem("accessToken", response.body.token);
         localStorage.setItem("refreshToken", response.body.refreshToken);
         this.router.navigate(["/"]);
+        this.socket.emit("connection-status", true);
       }, error => {
         this.errorHandler.handleError(error);
         this.message = error.message;

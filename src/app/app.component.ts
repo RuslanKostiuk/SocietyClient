@@ -22,10 +22,12 @@ export class AppComponent {
     );
 
     this.online$.subscribe(isConnected => {
-      try {
-        this.socket.emit("connection-status", isConnected);
-      } catch (e) {
-        console.log(e);
+      if (localStorage.getItem("refreshToken")) {
+        try {
+          this.socket.emit("connection-status", isConnected);
+        } catch (e) {
+          console.log(e);
+        }
       }
     });
   }
