@@ -39,7 +39,6 @@ export class AuthRegistrationComponent implements OnInit {
     private router: Router,
     public snackBar: MatSnackBar,
     public errorHandler: CustomErrorHandlerService
-
 ) {}
 
   ngOnInit() {

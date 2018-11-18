@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {S3Service} from "./s3.service";
+import {CustomErrorHandlerService} from "./custom-error-handler.service";
 
 @Injectable()
 export class UserService {
@@ -11,7 +12,8 @@ export class UserService {
 
   constructor(
     public http: HttpClient,
-    public s3: S3Service
+    public s3: S3Service,
+    public errorHandler: CustomErrorHandlerService
   ) { }
 
   public getUserInfo(): Observable<User> {
@@ -24,6 +26,8 @@ export class UserService {
         this.http.get(`${environment.api}/user/info`).subscribe((response: any) => {
           this.user = response.body.user;
           observer.next(this.user);
+        }, error => {
+          this.errorHandler.handleError(error);
         });
       // }
     });
@@ -43,15 +47,15 @@ export class UserService {
   }
 }
 
-export function UserFactory(http: HttpClient, s3: S3Service) {
-  return new UserService(http, s3);
+export function UserFactory(http: HttpClient, s3: S3Service, errorHandler: CustomErrorHandlerService) {
+  return new UserService(http, s3, errorHandler);
 }
 
 @NgModule({
   providers: [{
     provide: UserService,
     useFactory: UserFactory,
-    deps: [HttpClient, S3Service]
+    deps: [HttpClient, S3Service, CustomErrorHandlerService]
   }]
 })
 export class UserModule {}

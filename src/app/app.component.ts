@@ -1,4 +1,8 @@
 import { Component } from "@angular/core";
+import {UserService} from "./services/user.service";
+import {fromEvent, merge, Observable, of} from "rxjs";
+import { mapTo } from "rxjs/operators";
+import {SocketService} from "./services/socket.service";
 
 @Component({
   selector: "app-root",
@@ -6,5 +10,23 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "app";
+  private online$: Observable<boolean>;
+
+  constructor(
+    private socket: SocketService
+  ) {
+    this.online$ = merge(
+      of(navigator.onLine),
+      fromEvent(window, "load").pipe(mapTo(true)),
+      fromEvent(window, "unload").pipe(mapTo(false))
+    );
+
+    this.online$.subscribe(isConnected => {
+      try {
+        this.socket.emit("connection-status", isConnected);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  }
 }

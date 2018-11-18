@@ -46,7 +46,7 @@ export function S3Factory(errorHandler: CustomErrorHandlerService) {
     {
       provide: S3Service,
       useFactory: S3Factory,
-      deps: []
+      deps: [CustomErrorHandlerService]
     }
   ]
 })

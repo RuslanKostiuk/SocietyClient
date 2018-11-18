@@ -22,6 +22,11 @@ import {CustomErrorHandlerModule} from "./services/custom-error-handler.service"
 import { ChangePhotoComponent } from "./components/modals/change-photo/change-photo.component";
 import {ImageCropperModule} from "ngx-image-cropper";
 import {S3Module} from "./services/s3.service";
+import { ErrorModalComponent } from "./components/modals/error-modal/error-modal.component";
+import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
+import {environment} from "../environments/environment";
+import {SocketModule} from "./services/socket.service";
+const config: SocketIoConfig = { url: environment.socket, options: {}};
 
 @NgModule({
   declarations: [
@@ -30,7 +35,8 @@ import {S3Module} from "./services/s3.service";
     HomeComponent,
     ProfileComponent,
     EventComponent,
-    ChangePhotoComponent
+    ChangePhotoComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +54,15 @@ import {S3Module} from "./services/s3.service";
     UserModule,
     CustomErrorHandlerModule,
     ImageCropperModule,
-    S3Module
+    S3Module,
+    SocketIoModule.forRoot(config),
+    SocketModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    ChangePhotoComponent
+    ChangePhotoComponent,
+    ErrorModalComponent
   ]
 })
 export class AppModule { }

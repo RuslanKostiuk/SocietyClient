@@ -1,20 +1,21 @@
 import {ErrorHandler, Injectable, NgModule} from "@angular/core";
 import {ErrorStatuses} from "../shared/enums";
-import {AuthRegistrationService} from "./auth-registration.service";
-import {HttpClient} from "@angular/common/http";
+import {MatDialog} from "@angular/material";
+import {ErrorModalComponent} from "../components/modals/error-modal/error-modal.component";
 
 @Injectable()
 export class CustomErrorHandlerService implements ErrorHandler {
 
-  constructor() {
+  constructor(public errorDialog: MatDialog) {
   }
 
   handleError(error: any): void {
-    switch (error.errorStatus) {
-      case ErrorStatuses.dbError:
-      case ErrorStatuses.s3Error:
-      case ErrorStatuses.unknown:
-        console.log(error);
+    switch (true) {
+      case ErrorStatuses.dbError === error.errorStatus:
+      case ErrorStatuses.s3Error === error.errorStatus:
+      case ErrorStatuses.unknown === error.errorStatus:
+      case error.status === 500:
+        this.errorDialog.open(ErrorModalComponent);
         break;
       default:
         console.log(error);
@@ -23,8 +24,8 @@ export class CustomErrorHandlerService implements ErrorHandler {
   }
 }
 
-function CustomErrorHandlerFactory() {
- return new CustomErrorHandlerService();
+function CustomErrorHandlerFactory(errorDialog: MatDialog) {
+ return new CustomErrorHandlerService(errorDialog);
 }
 
 @NgModule({
@@ -32,7 +33,7 @@ function CustomErrorHandlerFactory() {
     {
       provide: CustomErrorHandlerService,
       useFactory: CustomErrorHandlerFactory,
-      deps: []
+      deps: [MatDialog]
     }
   ]
 })
