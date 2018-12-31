@@ -1,3 +1,32 @@
-<p>
-  event works!
-</p>
+<div class="container">
+  <div class="loader" *ngIf="!events">loading...</div>
+  <div class="content" *ngIf="events">
+    <div id="addButton">
+      <button mat-stroked-button color="primary" (click)="addEvent()">Add Event</button>
+    </div>
+    <div class="event-content">
+      <mat-card class="event-card" *ngFor="let event of events">
+        <mat-card-header>
+          <div mat-card-avatar
+               class="avatar-mini"
+               [ngStyle]="{'background-image': 'url(' + event.creatorAvatar + ')'}">
+          </div>
+          <mat-card-title>{{event.title}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image *ngIf="event.photos && event.photos[0]" class="event-image" [src]="event.photos[0].path" alt="...">
+        <mat-card-content>
+          <p>
+            {{event.description}}
+          </p>
+          <p>
+            <span>Holding Date: {{event.holdingDate | date}}</span>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SUBSCRIBE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

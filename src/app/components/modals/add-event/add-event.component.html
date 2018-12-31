@@ -1,0 +1,33 @@
+<div class="container">
+  <mat-form-field>
+    <input matInput placeholder="Tirle" [(ngModel)]="event.title">
+  </mat-form-field>
+  <mat-form-field class="description">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="25"
+              [(ngModel)] = "event.description"
+    >
+    </textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Location" [(ngModel)]="event.location">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Holding date" [(ngModel)]="event.holdingDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+    <input type="file" id="file" multiple (change)="handleFileInput($event.target.files)">
+  <div class="previewImages" style="display: flex;" *ngIf="previews && previews.length">
+    <div class="imageContainer" *ngFor="let preview of previews">
+      <img [src]="preview" alt="loading">
+    </div>
+  </div>
+  <div id="saveButton">
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+</div>

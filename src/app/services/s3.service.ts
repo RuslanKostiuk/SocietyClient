@@ -35,6 +35,16 @@ export class S3Service {
 
     return `${this.fileBaseUrl}/${userId}/${fileKey}`;
   }
+
+  public async saveItems(items: File[], userId: string): Promise<string[]> {
+    const promises: Promise<string>[] = [];
+    for (let i: number = 0; i < items.length; i++) {
+      const item: File = items[i];
+      promises.push(this.saveItem(item, userId));
+    }
+
+    return Promise.all(promises);
+  }
 }
 
 export function S3Factory(errorHandler: CustomErrorHandlerService) {

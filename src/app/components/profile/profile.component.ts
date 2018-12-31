@@ -16,12 +16,15 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public userService: UserService,
-    public changePhotoDialog: MatDialog
+    public changePhotoDialog: MatDialog,
+    public errorHandler: CustomErrorHandlerService
   ) { }
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe(response => {
       this.user = response;
+    }, error => {
+      this.errorHandler.handleError(error);
     });
   }
 

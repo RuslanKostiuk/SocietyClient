@@ -26,6 +26,8 @@ import { ErrorModalComponent } from "./components/modals/error-modal/error-modal
 import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 import {environment} from "../environments/environment";
 import {SocketModule} from "./services/socket.service";
+import { AddEventComponent } from "./components/modals/add-event/add-event.component";
+import {EventModule} from "./services/event.service";
 const config: SocketIoConfig = { url: environment.socket, options: {}};
 
 @NgModule({
@@ -36,7 +38,8 @@ const config: SocketIoConfig = { url: environment.socket, options: {}};
     ProfileComponent,
     EventComponent,
     ChangePhotoComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,
@@ -56,13 +59,15 @@ const config: SocketIoConfig = { url: environment.socket, options: {}};
     ImageCropperModule,
     S3Module,
     SocketIoModule.forRoot(config),
-    SocketModule
+    SocketModule,
+    EventModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     ChangePhotoComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    AddEventComponent
   ]
 })
 export class AppModule { }

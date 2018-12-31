@@ -1,0 +1,23 @@
+.container>* {
+  display: block;
+
+  textarea {
+    min-height: 100px;
+  }
+}
+
+#saveButton {
+  display: flex;
+  padding-right: 70px;
+  padding-top: 50px;
+  justify-content: flex-end;
+}
+
+.previewImages {
+  .imageContainer {
+    margin: 10px;
+    img {
+      max-width: 150px;
+    }
+  }
+}
