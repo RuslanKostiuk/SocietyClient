@@ -1,0 +1,11 @@
+<div>
+  <h3 class="modal-header">Users, who like it</h3>
+  <div>
+    <mat-card class="user-card" *ngFor="let user of users">
+      <div mat-card-avatar class="avatar-mini"
+           [ngStyle]="{'background-image': 'url(' + user.avatar + ')'}"
+           (click)=navigateLikeAuthor(user._id)></div>
+      <mat-card-title (click)=navigateLikeAuthor(user._id)>{{user.lastName}} {{user.firstName}}</mat-card-title>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-mini {
+  background-size: cover;
+  margin-top: -2%;
+}
+
+.avatar-mini:hover {
+  cursor: pointer;
+}
+
+.user-card {
+  display: flex;
+  margin-bottom: 10px;
+  mat-card-title {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+  mat-card-title:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

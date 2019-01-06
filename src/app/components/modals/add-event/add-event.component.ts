@@ -3,7 +3,6 @@ import Event from "../../../models/Event";
 import {EventService} from "../../../services/event.service";
 import {S3Service} from "../../../services/s3.service";
 import {UserService} from "../../../services/user.service";
-import User from "../../../models/User";
 import Photo from "../../../models/Photo";
 
 @Component({
@@ -28,14 +27,15 @@ export class AddEventComponent implements OnInit {
   }
 
   public save(): void {
-    this.userService.getUserInfo().subscribe(async user => {
-      const pathes = await this.s3.saveItems(this.files, user._id);
-      this.event.photos = pathes.map(path => {
-        const photo: Photo = new Photo();
-        photo.path = path;
-        return photo;
-      });
-
+    this.userService.getMyInfo().subscribe(async user => {
+      if (this.files) {
+        const pathes = await this.s3.saveItems(this.files, user._id);
+        this.event.photos = pathes.map(path => {
+          const photo: Photo = new Photo();
+          photo.path = path;
+          return photo;
+        });
+      }
       this.eventService.save(this.event).subscribe(event => {
         this.event = event;
       });

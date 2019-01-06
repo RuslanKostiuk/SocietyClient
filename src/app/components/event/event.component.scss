@@ -5,6 +5,10 @@
   justify-content: flex-end;
 }
 
+.content {
+  width: 50%;
+  margin-left: 2%;
+}
 .event-content {
   flex-wrap: wrap;
   margin-top: 20px;
@@ -14,8 +18,40 @@
     margin-top: -2%;
   }
 
+  .avatar-mini:hover {
+    cursor: pointer;
+  }
+
   .event-card {
-    width: 30%;
     margin: 20px 20px 0 0;
   }
+}
+
+.e-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#user-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.additional-event-info {
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  cursor: pointer;
+  color: blue;
+}
+
+.badge:hover {
+  text-decoration: underline;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
 }

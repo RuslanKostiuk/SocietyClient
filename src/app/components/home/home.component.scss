@@ -1,5 +1,4 @@
 .container {
-  height: 100%;
   .main-content {
     height: 100%;
 
@@ -15,6 +14,7 @@
 
     mat-drawer {
       width: 15%;
+      overflow: hidden;
     }
 
     mat-drawer-container {

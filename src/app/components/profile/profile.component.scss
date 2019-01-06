@@ -1,7 +1,6 @@
 .profile-content {
   padding: 2%;
   display: flex;
-  justify-content: space-between;
   .content {
     .avatar {
       width: 400px;
@@ -14,8 +13,9 @@
     }
   }
 
-  .personal-info {
-    width: 70%;
+  .right-side {
+    width: 50%;
+    margin-left: 2%;
   }
 
   .name-content {
@@ -26,4 +26,8 @@
       margin-left: 10px;
     }
   }
+}
+
+:host ::ng-deep #e-content {
+  width: 100%;
 }

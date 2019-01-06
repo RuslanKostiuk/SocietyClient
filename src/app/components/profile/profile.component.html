@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="!user" [diameter]="230"></mat-spinner>
+<!--<mat-spinner *ngIf="!user" [diameter]="230"></mat-spinner>-->
 <div class="profile-content" *ngIf="user">
   <div class="content">
     <mat-card>
@@ -8,7 +8,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  <div class="content personal-info">
+  <div class="content right-side">
     <mat-card>
       <div class="name-content">
         <mat-card-title> {{user.firstName}} {{user.lastName}}</mat-card-title>
@@ -20,5 +20,10 @@
         <p *ngIf="user.address">Address: {{user.address.city}}, {{user.address.street}} {{user.address.houseNumber}}</p>
       </mat-card-content>
     </mat-card>
+    <div class="users-events">
+      <h1>User's events</h1>
+      <app-event></app-event>
+    </div>
   </div>
+
 </div>

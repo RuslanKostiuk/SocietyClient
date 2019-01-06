@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
 import {CustomErrorHandlerService} from "../../services/custom-error-handler.service";
 import {SocketService} from "../../services/socket.service";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: "app-auth-registration",
@@ -40,11 +41,13 @@ export class AuthRegistrationComponent implements OnInit {
     private router: Router,
     public snackBar: MatSnackBar,
     public errorHandler: CustomErrorHandlerService,
-    private socket: SocketService
+    private socket: SocketService,
+    public session: SessionService
 ) {}
 
   ngOnInit() {
     this.genders = objectToArray(Genders);
+    this.session.close();
     const refreshToken: string = localStorage.getItem("refreshToken");
     if (refreshToken) {
       this.socket.emit("connection-status", false);
@@ -81,8 +84,8 @@ export class AuthRegistrationComponent implements OnInit {
       .subscribe((response) => {
         localStorage.setItem("accessToken", response.body.token);
         localStorage.setItem("refreshToken", response.body.refreshToken);
-        this.router.navigate(["/"]);
         this.socket.emit("connection-status", true);
+        this.router.navigate(["/"]);
       }, error => {
         this.errorHandler.handleError(error);
       });

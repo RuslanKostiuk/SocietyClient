@@ -15,4 +15,5 @@ export default class Event {
   updatedAt: Date;
   userId: string;
   creatorAvatar: string;
+  creatorName: string;
 }

@@ -28,6 +28,8 @@ import {environment} from "../environments/environment";
 import {SocketModule} from "./services/socket.service";
 import { AddEventComponent } from "./components/modals/add-event/add-event.component";
 import {EventModule} from "./services/event.service";
+import {SessionModule} from "./services/session.service";
+import { UserLikesComponent } from "./components/modals/user-likes/user-likes.component";
 const config: SocketIoConfig = { url: environment.socket, options: {}};
 
 @NgModule({
@@ -39,7 +41,8 @@ const config: SocketIoConfig = { url: environment.socket, options: {}};
     EventComponent,
     ChangePhotoComponent,
     ErrorModalComponent,
-    AddEventComponent
+    AddEventComponent,
+    UserLikesComponent
   ],
   imports: [
     BrowserModule,
@@ -60,14 +63,16 @@ const config: SocketIoConfig = { url: environment.socket, options: {}};
     S3Module,
     SocketIoModule.forRoot(config),
     SocketModule,
-    EventModule
+    EventModule,
+    SessionModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     ChangePhotoComponent,
     ErrorModalComponent,
-    AddEventComponent
+    AddEventComponent,
+    UserLikesComponent
   ]
 })
 export class AppModule { }

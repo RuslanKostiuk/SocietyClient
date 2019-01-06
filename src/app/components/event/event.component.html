@@ -1,30 +1,48 @@
 <div class="container">
-  <div class="loader" *ngIf="!events">loading...</div>
-  <div class="content" *ngIf="events">
+  <!--<div class="loader" *ngIf="!events">loading...</div>-->
+  <!--<mat-spinner *ngIf="!events" [diameter]="230"></mat-spinner>-->
+  <div class="content" id="e-content" *ngIf="events">
     <div id="addButton">
-      <button mat-stroked-button color="primary" (click)="addEvent()">Add Event</button>
+      <button *ngIf="showAddButton" mat-stroked-button color="primary" (click)="addEvent()">Add Event</button>
     </div>
     <div class="event-content">
       <mat-card class="event-card" *ngFor="let event of events">
         <mat-card-header>
           <div mat-card-avatar
                class="avatar-mini"
+               routerLink="/user/{{event.userId}}"
                [ngStyle]="{'background-image': 'url(' + event.creatorAvatar + ')'}">
           </div>
-          <mat-card-title>{{event.title}}</mat-card-title>
+          <mat-card-title>
+            <span id="user-link" routerLink="/user/{{event.userId}}">{{event.creatorName}}</span> added event
+            <span class="e-title">{{event.title}}</span>
+          </mat-card-title>
         </mat-card-header>
         <img mat-card-image *ngIf="event.photos && event.photos[0]" class="event-image" [src]="event.photos[0].path" alt="...">
         <mat-card-content>
           <p>
             {{event.description}}
           </p>
-          <p>
+          <div class="additional-event-info">
             <span>Holding Date: {{event.holdingDate | date}}</span>
-          </p>
+            <span class="likes">
+              <button mat-icon-button color="primary" (click)="addLike(event)">
+                <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+              </button>
+              <span *ngIf="event.likes && event.likes.length"
+                    matBadge="{{event.likes.length}}"
+                    matBadgeColor="accent"
+                    matBadgePosition="before"
+                    matBadgeOverlap="false"
+                    class="badge"
+                    (click)="showLikers(event)">likes
+              </span>
+              </span>
+          </div>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
           <button mat-button>SUBSCRIBE</button>
+          <button mat-button>VIEW EVENT PAGE</button>
         </mat-card-actions>
       </mat-card>
     </div>

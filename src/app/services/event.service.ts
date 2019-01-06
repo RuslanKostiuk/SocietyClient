@@ -19,11 +19,13 @@ export class EventService {
     return this.http.post(`${environment.api}/event/save`, event);
   }
 
-  public getMany(limit: string, offset: string): Observable<any> {
-    return this.http.get(`${environment.api}/event/getMany`, {params: {
-      limit,
-      offset
-    }});
+  public udpate(event: Event): Observable<any> {
+    return this.http.post(`${environment.api}/event/update`, event);
+  }
+
+  public getMany(filters: any, limit: string, offset: string): Observable<any> {
+    Object.assign(filters, {limit: limit, offset: offset});
+    return this.http.get(`${environment.api}/event/getMany`, {params: filters});
   }
 }
 

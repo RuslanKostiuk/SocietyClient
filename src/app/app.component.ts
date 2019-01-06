@@ -3,6 +3,7 @@ import {UserService} from "./services/user.service";
 import {fromEvent, merge, Observable, of} from "rxjs";
 import { mapTo } from "rxjs/operators";
 import {SocketService} from "./services/socket.service";
+import {SessionService} from "./services/session.service";
 
 @Component({
   selector: "app-root",
@@ -13,8 +14,10 @@ export class AppComponent {
   private online$: Observable<boolean>;
 
   constructor(
-    private socket: SocketService
+    private socket: SocketService,
+    private session: SessionService
   ) {
+    this.session.init();
     this.online$ = merge(
       of(navigator.onLine),
       fromEvent(window, "load").pipe(mapTo(true)),

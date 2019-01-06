@@ -21,13 +21,14 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-    <input type="file" id="file" multiple (change)="handleFileInput($event.target.files)">
+    <input type="file" accept=".jpg, .jpeg, .png" id="file" multiple (change)="handleFileInput($event.target.files)">
   <div class="previewImages" style="display: flex;" *ngIf="previews && previews.length">
     <div class="imageContainer" *ngFor="let preview of previews">
       <img [src]="preview" alt="loading">
     </div>
   </div>
   <div id="saveButton">
-    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button mat-raised-button mat-dialog-close color="primary" (click)="save()">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
   </div>
 </div>

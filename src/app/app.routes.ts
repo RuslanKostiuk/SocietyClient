@@ -18,12 +18,20 @@ const routes: Routes = [
       {
         path: "",
         component: ProfileComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        pathMatch: "full"
+      },
+      {
+        path: "user/:id",
+        component: ProfileComponent,
+        canActivate: [AuthGuardService],
+        pathMatch: "full"
       },
       {
         path: "events",
         component: EventComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        pathMatch: "full"
       }
     ]
   },

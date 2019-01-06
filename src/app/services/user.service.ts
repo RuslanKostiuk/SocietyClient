@@ -16,20 +16,14 @@ export class UserService {
     public errorHandler: CustomErrorHandlerService
   ) { }
 
-  public getUserInfo(): Observable<User> {
+  public getMyInfo(): Observable<User> {
     return new Observable<User>(observer => {
-      // if (this.user) {
-      //
-      //   observer.next(this.user);
-      //   observer.complete();
-      // } else {
         this.http.get(`${environment.api}/user/info`).subscribe((response: any) => {
           this.user = response.body.user;
           observer.next(this.user);
         }, error => {
           this.errorHandler.handleError(error);
         });
-      // }
     });
   }
 
@@ -44,6 +38,23 @@ export class UserService {
 
   public updateUser(user: any): Observable<any> {
     return this.http.post(`${environment.api}/user/update`, user);
+  }
+
+  public getUserInfo(id: string): Observable<any> {
+    return new Observable<any>(observer => {
+      this.http.get(`${environment.api}/user/${id}`).subscribe((response: any) => {
+        this.user = response.body.user;
+        observer.next(this.user);
+      });
+    });
+  }
+
+  public getMany(ids: string[]): Observable<any> {
+    return this.http.post(`${environment.api}/user/getMany`, ids);
+  }
+
+  public getTargetUser(): User {
+    return this.user;
   }
 }
 
