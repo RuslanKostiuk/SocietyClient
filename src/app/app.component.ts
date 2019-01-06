@@ -27,7 +27,10 @@ export class AppComponent {
     this.online$.subscribe(isConnected => {
       if (localStorage.getItem("refreshToken")) {
         try {
-          this.socket.emit("connection-status", isConnected);
+          const userId: string = this.session.sessionData.userId;
+          this.socket.emit("connection-status", {
+            isConnected, userId
+          });
         } catch (e) {
           console.log(e);
         }

@@ -47,13 +47,13 @@ export class AuthRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.genders = objectToArray(Genders);
-    this.session.close();
     const refreshToken: string = localStorage.getItem("refreshToken");
     if (refreshToken) {
-      this.socket.emit("connection-status", false);
+      const userId: string = this.session.sessionData.userId;
+      this.socket.emit("connection-status", {isConnected: false, userId});
       this.authReg.signOut(refreshToken).toPromise();
     }
-
+    this.session.close();
     localStorage.clear();
     this.authRegGroup = this._formBuilder.group({
       authEmail: ["", [Validators.required, Validators.email]],
@@ -84,7 +84,8 @@ export class AuthRegistrationComponent implements OnInit {
       .subscribe((response) => {
         localStorage.setItem("accessToken", response.body.token);
         localStorage.setItem("refreshToken", response.body.refreshToken);
-        this.socket.emit("connection-status", true);
+        const userId: string = this.session.sessionData.userId;
+        this.socket.emit("connection-status", {isConnected: true, userId});
         this.router.navigate(["/"]);
       }, error => {
         this.errorHandler.handleError(error);
@@ -111,8 +112,9 @@ export class AuthRegistrationComponent implements OnInit {
       this.authReg.verify(this.user.email, this.verificationCode).subscribe((response) => {
         localStorage.setItem("accessToken", response.body.token);
         localStorage.setItem("refreshToken", response.body.refreshToken);
+        const userId: string = this.session.sessionData.userId;
+        this.socket.emit("connection-status", {isConnected: true, userId});
         this.router.navigate(["/"]);
-        this.socket.emit("connection-status", true);
       }, error => {
         this.errorHandler.handleError(error);
         this.message = error.message;
