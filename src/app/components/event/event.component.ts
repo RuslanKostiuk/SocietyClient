@@ -17,7 +17,7 @@ import {UserLikesComponent} from "../modals/user-likes/user-likes.component";
 })
 export class EventComponent implements OnInit {
   public events: Event[];
-  public me: User;
+  public myId: string;
   public showAddButton: boolean;
 
   constructor(
@@ -46,7 +46,7 @@ export class EventComponent implements OnInit {
   }
 
   public addLike(event: Event): void {
-    const userId: string = this.session.user._id;
+    const userId: string = this.session.sessionData.userId;
 
     if (!event.likes) {
       event.likes = [];
@@ -72,10 +72,10 @@ export class EventComponent implements OnInit {
 
   private load(): void {
     const user: User = this.userService.getTargetUser();
-    this.me = this.session.user;
+    this.myId = this.session.sessionData.userId;
     const isEventRoute: boolean = this.router.url === "/events";
     const filter: any = isEventRoute ? {} : {userId: user._id};
-    this.showAddButton = isEventRoute ? true : this.me._id === user._id;
+    this.showAddButton = isEventRoute ? true : this.myId === user._id;
     this.eventService
       .getMany(filter, "10", "0")
       .subscribe((response) => {

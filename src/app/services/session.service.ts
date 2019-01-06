@@ -1,42 +1,42 @@
 import {Injectable, NgModule} from "@angular/core";
 import User from "../models/User";
 import {UserService} from "./user.service";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable()
 export class SessionService {
-  private _user: User;
-  constructor(
-    public userService: UserService
-  ) {}
+  private _sessionData: any;
+  constructor() {}
 
   public async init(): Promise<void> {
-    if (!this._user) {
-      this.userService.getMyInfo().subscribe(user => {
-        this._user = user;
-      });
+    const token: string = localStorage.getItem("accessToken");
+
+    if (token) {
+      this._sessionData = {};
+      const helper: JwtHelperService = new JwtHelperService();
+      const decodedToken = helper.decodeToken(token);
+      this._sessionData.userId = decodedToken.id;
     }
   }
-
   public close(): void {
-    this._user = null;
+    this._sessionData = null;
   }
 
-  public get user(): User {
-    if (!this._user) {
+  public get sessionData(): any {
+    if (!this._sessionData) {
       this.init();
     }
-    return this._user;
+    return this._sessionData;
   }
 }
-export function SessionFactory(userService: UserService): SessionService {
-  return new SessionService(userService);
+export function SessionFactory(): SessionService {
+  return new SessionService();
 }
 
 @NgModule({
   providers: [{
     provide: SessionService,
-    useFactory: SessionFactory,
-    deps: [UserService]
+    useFactory: SessionFactory
   }]
 })
 export class SessionModule {}
